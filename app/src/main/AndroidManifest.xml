@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PixelNothingWidgets"
+        tools:targetApi="31">
+
+        <!-- Main Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PixelNothingWidgets">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Settings Activity -->
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PixelNothingWidgets" />
+
+        <!-- Weather Detail Activity -->
+        <activity
+            android:name=".ui.weather.WeatherDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PixelNothingWidgets" />
+
+        <!-- Pixel Clock Widget -->
+        <receiver
+            android:name=".widget.pixel.PixelClockWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/pixel_clock_widget_info" />
+        </receiver>
+
+        <!-- Pixel Weather Widget -->
+        <receiver
+            android:name=".widget.pixel.PixelWeatherWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/pixel_weather_widget_info" />
+        </receiver>
+
+        <!-- Pixel Clock + Weather Widget -->
+        <receiver
+            android:name=".widget.pixel.PixelClockWeatherWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/pixel_clock_weather_widget_info" />
+        </receiver>
+
+        <!-- Nothing Clock Widget -->
+        <receiver
+            android:name=".widget.nothing.NothingClockWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/nothing_clock_widget_info" />
+        </receiver>
+
+        <!-- Nothing Weather Widget -->
+        <receiver
+            android:name=".widget.nothing.NothingWeatherWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/nothing_weather_widget_info" />
+        </receiver>
+
+        <!-- Weather Sync Worker -->
+        <service
+            android:name=".work.WeatherSyncWorker"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <!-- Widget Update Receiver -->
+        <receiver
+            android:name=".widget.WidgetUpdateReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.pixelnothingwidgets.ACTION_UPDATE_WIDGETS" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

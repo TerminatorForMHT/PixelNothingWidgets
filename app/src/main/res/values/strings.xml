@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Pixel & Nothing Widgets</string>
+    <string name="settings_title">Settings</string>
+    <string name="weather_detail_title">Weather Detail</string>
+    <string name="caiyun_token_hint">Enter Caiyun API Token</string>
+    <string name="latitude_hint">Enter Latitude</string>
+    <string name="longitude_hint">Enter Longitude</string>
+    <string name="city_name_hint">Enter City Display Name</string>
+    <string name="save_button">Save</string>
+    <string name="last_updated">Last Updated</string>
+    <string name="humidity">Humidity</string>
+    <string name="token_required">TOKEN REQUIRED</string>
+    <string name="sync_failed">SYNC FAILED</string>
+    <string name="network_error">NETWORK ERROR</string>
+    <string name="loading">Loading...</string>
+    <string name="sunny">Sunny</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="light_rain">Light Rain</string>
+    <string name="moderate_rain">Moderate Rain</string>
+    <string name="heavy_rain">Heavy Rain</string>
+    <string name="snow">Snow</string>
+    <string name="fog">Fog</string>
+    <string name="windy">Windy</string>
+</resources>

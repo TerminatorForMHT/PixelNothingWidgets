@@ -1,0 +1,51 @@
+# Android build outputs
+build/
+.idea/
+.gradle/
+local.properties
+*.iml
+*.hprof
+.cxx/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+*.swp
+*.swo
+*~
+
+# Gradle files
+gradle-wrapper.jar
+
+# Local configuration files (sdk path, etc)
+local.properties
+
+# Build outputs
+*.apk
+*.aab
+*.ap_*
+*.dex
+*.class
+
+# Logs
+logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Dependency directories
+node_modules/
+jniLibs/
+
+# Testing
+coverage/
+
+# CI/CD
+.circleci/
+.github/
+.travis.yml
