@@ -6,6 +6,5 @@
     android:initialLayout="@layout/pixel_weather_widget"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
-    android:previewImage="@drawable/ic_launcher_foreground"
-    android:description="Pixel-style weather widget">
+    android:description="@string/app_name">
 </appwidget-provider>

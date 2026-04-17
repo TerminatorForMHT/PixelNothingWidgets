@@ -6,6 +6,5 @@
     android:initialLayout="@layout/nothing_weather_widget"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
-    android:previewImage="@drawable/ic_launcher_foreground"
-    android:description="Nothing-style weather widget">
+    android:description="@string/app_name">
 </appwidget-provider>

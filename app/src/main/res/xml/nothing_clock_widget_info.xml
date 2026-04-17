@@ -6,6 +6,5 @@
     android:initialLayout="@layout/nothing_clock_widget"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
-    android:previewImage="@drawable/ic_launcher_foreground"
-    android:description="Nothing-style clock widget">
+    android:description="@string/app_name">
 </appwidget-provider>
