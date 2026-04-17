@@ -27,8 +27,22 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
 
-    - name: Build with Gradle (with stacktrace)
-      run: ./gradlew build --stacktrace
+    - name: Clean project
+      run: ./gradlew clean
+
+    - name: Compile Kotlin with detailed output
+      run: ./gradlew compileDebugKotlin --info 2>&1 | tee compile.log
+
+    - name: Show compile log
+      run: |
+        echo "=== Last 100 lines of compile log ==="
+        tail -100 compile.log
+        echo "=== Searching for errors ==="
+        grep -i "error:" compile.log || echo "No 'error:' found in log"
+        grep -E "^e:" compile.log || echo "No Kotlin errors found"
+
+    - name: Build debug APK
+      run: ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
