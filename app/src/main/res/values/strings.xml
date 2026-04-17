@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pixel & Nothing Widgets</string>
+    <string name="app_name">Pixel and Nothing Widgets</string>
     <string name="settings_title">Settings</string>
     <string name="weather_detail_title">Weather Detail</string>
     <string name="caiyun_token_hint">Enter Caiyun API Token</string>
