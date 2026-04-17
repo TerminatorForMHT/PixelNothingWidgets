@@ -2,6 +2,7 @@ package com.example.pixelnothingwidgets.ui.settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pixelnothingwidgets.R
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
