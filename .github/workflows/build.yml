@@ -30,16 +30,21 @@ jobs:
     - name: Clean project
       run: ./gradlew clean
 
-    - name: Compile Kotlin with detailed output
-      run: ./gradlew compileDebugKotlin --info 2>&1 | tee compile.log
+    - name: Compile Kotlin with full output
+      run: ./gradlew compileDebugKotlin 2>&1 | tee compile.log
 
-    - name: Show compile log
+    - name: Find Kotlin errors
       run: |
-        echo "=== Last 100 lines of compile log ==="
-        tail -100 compile.log
-        echo "=== Searching for errors ==="
-        grep -i "error:" compile.log || echo "No 'error:' found in log"
-        grep -E "^e:" compile.log || echo "No Kotlin errors found"
+        echo "=== Searching for Kotlin errors ==="
+        grep -E "^e:.*\.kt:" compile.log || echo "No Kotlin errors with 'e:' pattern"
+        grep -i "unresolved reference" compile.log || echo "No unresolved reference"
+        grep -i "type mismatch" compile.log || echo "No type mismatch"
+        grep -i "type inference failed" compile.log || echo "No type inference failed"
+        grep -i "cannot find" compile.log || echo "No cannot find"
+        grep -i "not found" compile.log || echo "No not found"
+        echo ""
+        echo "=== Last 50 lines of log ==="
+        tail -50 compile.log
 
     - name: Build debug APK
       run: ./gradlew assembleDebug
