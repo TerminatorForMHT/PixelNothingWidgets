@@ -12,6 +12,7 @@ import com.example.pixelnothingwidgets.ui.weather.WeatherDetailActivity
 import com.example.pixelnothingwidgets.widget.WidgetRenderer
 import com.example.pixelnothingwidgets.data.SettingsDataStore
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.first
 
 class PixelWeatherWidgetProvider : AppWidgetProvider() {
 

@@ -15,6 +15,7 @@ import com.example.pixelnothingwidgets.widget.WidgetRenderer
 import com.example.pixelnothingwidgets.widget.WidgetTimeUtils
 import com.example.pixelnothingwidgets.data.SettingsDataStore
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.first
 
 class PixelClockWeatherWidgetProvider : AppWidgetProvider() {
 

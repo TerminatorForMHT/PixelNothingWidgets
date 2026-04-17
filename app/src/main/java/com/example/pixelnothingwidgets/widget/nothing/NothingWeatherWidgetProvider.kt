@@ -14,6 +14,7 @@ import com.example.pixelnothingwidgets.weather.mapWeatherCode
 import com.example.pixelnothingwidgets.widget.WidgetRenderer
 import com.example.pixelnothingwidgets.data.SettingsDataStore
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.first
 
 class NothingWeatherWidgetProvider : AppWidgetProvider() {
 
