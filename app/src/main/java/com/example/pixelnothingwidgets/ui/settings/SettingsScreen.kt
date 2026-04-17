@@ -2,6 +2,7 @@ package com.example.pixelnothingwidgets.ui.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -55,7 +56,7 @@ fun SettingsScreen(settingsDataStore: SettingsDataStore, onSave: () -> Unit) {
             onValueChange = { tokenInput = it },
             label = { Text("Caiyun API Token") },
             placeholder = { Text("Enter your API token") },
-            modifier = Modifier.fillMaxSize().padding(bottom = 16.dp),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
             singleLine = true
         )
 
@@ -65,7 +66,7 @@ fun SettingsScreen(settingsDataStore: SettingsDataStore, onSave: () -> Unit) {
             label = { Text("Latitude") },
             placeholder = { Text("e.g. 39.9042") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxSize().padding(bottom = 16.dp),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
             singleLine = true
         )
 
@@ -75,7 +76,7 @@ fun SettingsScreen(settingsDataStore: SettingsDataStore, onSave: () -> Unit) {
             label = { Text("Longitude") },
             placeholder = { Text("e.g. 116.4074") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxSize().padding(bottom = 16.dp),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
             singleLine = true
         )
 
@@ -84,7 +85,7 @@ fun SettingsScreen(settingsDataStore: SettingsDataStore, onSave: () -> Unit) {
             onValueChange = { cityNameInput = it },
             label = { Text("City Display Name") },
             placeholder = { Text("e.g. Beijing") },
-            modifier = Modifier.fillMaxSize().padding(bottom = 32.dp),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
             singleLine = true
         )
 
@@ -102,7 +103,7 @@ fun SettingsScreen(settingsDataStore: SettingsDataStore, onSave: () -> Unit) {
                 }
                 onSave()
             },
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text("Save")
         }
