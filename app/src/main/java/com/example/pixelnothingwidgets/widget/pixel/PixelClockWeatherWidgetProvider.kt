@@ -14,6 +14,7 @@ import com.example.pixelnothingwidgets.ui.weather.WeatherDetailActivity
 import com.example.pixelnothingwidgets.widget.WidgetRenderer
 import com.example.pixelnothingwidgets.widget.WidgetTimeUtils
 import com.example.pixelnothingwidgets.data.SettingsDataStore
+import com.example.pixelnothingwidgets.system.DynamicColorHelper
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.flow.first
 
@@ -36,6 +37,19 @@ class PixelClockWeatherWidgetProvider : AppWidgetProvider() {
             val widgetRenderer = WidgetRenderer(context)
             val timeUtils = WidgetTimeUtils()
             val settingsDataStore = SettingsDataStore(context)
+            val dynamicColorHelper = DynamicColorHelper(context)
+
+            // Apply dynamic colors
+            val primaryColor = dynamicColorHelper.getDynamicColor()
+            val textColor = dynamicColorHelper.getTextColorForBackground(primaryColor)
+
+            // Set widget text colors
+            views.setInt(R.id.time_text, "setTextColor", textColor)
+            views.setInt(R.id.date_text, "setTextColor", textColor)
+            views.setInt(R.id.city_text, "setTextColor", textColor)
+            views.setInt(R.id.temperature_text, "setTextColor", textColor)
+            views.setInt(R.id.condition_text, "setTextColor", textColor)
+            views.setInt(R.id.error_text, "setTextColor", textColor)
 
             // Set time and date
             views.setTextViewText(R.id.time_text, timeUtils.getCurrentTime())

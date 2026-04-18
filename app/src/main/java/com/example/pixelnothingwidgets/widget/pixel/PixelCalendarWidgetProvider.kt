@@ -6,14 +6,15 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.provider.AlarmClock
 import android.provider.CalendarContract
 import android.widget.RemoteViews
 import com.example.pixelnothingwidgets.R
-import com.example.pixelnothingwidgets.widget.WidgetTimeUtils
 import com.example.pixelnothingwidgets.system.DynamicColorHelper
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
-class PixelClockWidgetProvider : AppWidgetProvider() {
+class PixelCalendarWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         for (appWidgetId in appWidgetIds) {
@@ -21,15 +22,9 @@ class PixelClockWidgetProvider : AppWidgetProvider() {
         }
     }
 
-    override fun onEnabled(context: Context) {
-        // Start periodic weather sync when widget is first added
-        com.example.pixelnothingwidgets.work.WeatherSyncWorker.enqueueWork(context)
-    }
-
     companion object {
         fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            val views = RemoteViews(context.packageName, R.layout.pixel_clock_widget)
-            val timeUtils = WidgetTimeUtils()
+            val views = RemoteViews(context.packageName, R.layout.pixel_calendar_widget)
             val dynamicColorHelper = DynamicColorHelper(context)
 
             // Apply dynamic colors
@@ -37,42 +32,41 @@ class PixelClockWidgetProvider : AppWidgetProvider() {
             val textColor = dynamicColorHelper.getTextColorForBackground(primaryColor)
 
             // Set widget text colors
-            views.setInt(R.id.time_text, "setTextColor", textColor)
             views.setInt(R.id.date_text, "setTextColor", textColor)
+            views.setInt(R.id.day_text, "setTextColor", textColor)
+            views.setInt(R.id.event_count_text, "setTextColor", textColor)
 
-            // Set time and date
-            views.setTextViewText(R.id.time_text, timeUtils.getCurrentTime())
-            views.setTextViewText(R.id.date_text, timeUtils.getCurrentDate())
+            // Set date and day
+            val calendar = Calendar.getInstance()
+            val dateFormat = SimpleDateFormat("EEEE, MMMM d", Locale.getDefault())
+            val dayFormat = SimpleDateFormat("d", Locale.getDefault())
+            
+            views.setTextViewText(R.id.date_text, dateFormat.format(calendar.time))
+            views.setTextViewText(R.id.day_text, dayFormat.format(calendar.time))
 
-            // Set click intent for time (open clock app)
-            val clockIntent = Intent(AlarmClock.ACTION_SHOW_ALARMS)
-            clockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            val clockPendingIntent = PendingIntent.getActivity(
-                context,
-                0,
-                clockIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-            views.setOnClickPendingIntent(R.id.time_text, clockPendingIntent)
+            // Set event count (mock data for now)
+            views.setTextViewText(R.id.event_count_text, "2 events today")
 
-            // Set click intent for date (open calendar app)
+            // Set click intent (open calendar app)
             val calendarIntent = Intent(Intent.ACTION_VIEW)
             calendarIntent.data = CalendarContract.CONTENT_URI
             calendarIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             val calendarPendingIntent = PendingIntent.getActivity(
                 context,
-                1,
+                0,
                 calendarIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
             views.setOnClickPendingIntent(R.id.date_text, calendarPendingIntent)
+            views.setOnClickPendingIntent(R.id.day_text, calendarPendingIntent)
+            views.setOnClickPendingIntent(R.id.event_count_text, calendarPendingIntent)
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
         fun updateAllWidgets(context: Context) {
             val appWidgetManager = AppWidgetManager.getInstance(context)
-            val componentName = ComponentName(context, PixelClockWidgetProvider::class.java)
+            val componentName = ComponentName(context, PixelCalendarWidgetProvider::class.java)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
             for (appWidgetId in appWidgetIds) {
                 updateAppWidget(context, appWidgetManager, appWidgetId)

@@ -11,6 +11,7 @@ import com.example.pixelnothingwidgets.R
 import com.example.pixelnothingwidgets.ui.weather.WeatherDetailActivity
 import com.example.pixelnothingwidgets.widget.WidgetRenderer
 import com.example.pixelnothingwidgets.data.SettingsDataStore
+import com.example.pixelnothingwidgets.system.DynamicColorHelper
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.flow.first
 
@@ -32,12 +33,24 @@ class PixelWeatherWidgetProvider : AppWidgetProvider() {
             val views = RemoteViews(context.packageName, R.layout.pixel_weather_widget)
             val widgetRenderer = WidgetRenderer(context)
             val settingsDataStore = SettingsDataStore(context)
+            val dynamicColorHelper = DynamicColorHelper(context)
 
             // Get weather data
             val weatherData = widgetRenderer.getWeatherData()
             val cityName = runBlocking {
                 settingsDataStore.cityName.first()
             }
+
+            // Apply dynamic colors
+            val primaryColor = dynamicColorHelper.getDynamicColor()
+            val textColor = dynamicColorHelper.getTextColorForBackground(primaryColor)
+            val surfaceColor = dynamicColorHelper.getSurfaceColor(primaryColor)
+
+            // Set widget background and text colors
+            views.setInt(R.id.city_text, "setTextColor", textColor)
+            views.setInt(R.id.temperature_text, "setTextColor", textColor)
+            views.setInt(R.id.condition_text, "setTextColor", textColor)
+            views.setInt(R.id.error_text, "setTextColor", textColor)
 
             if (weatherData != null && cityName.isNotEmpty()) {
                 // Show weather data

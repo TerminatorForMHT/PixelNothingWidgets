@@ -7,6 +7,7 @@ import android.os.Build
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 
 class DynamicColorHelper(private val context: Context) {
 
@@ -28,6 +29,46 @@ class DynamicColorHelper(private val context: Context) {
         return ContextCompat.getColor(context, com.example.pixelnothingwidgets.R.color.purple_500)
     }
 
+    @SuppressLint("NewApi")
+    fun getSecondaryColor(): Int {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            try {
+                val wallpaperManager = context.getSystemService(Context.WALLPAPER_SERVICE) as android.app.WallpaperManager
+                val wallpaperColors = wallpaperManager.getWallpaperColors(android.app.WallpaperManager.FLAG_SYSTEM)
+                if (wallpaperColors != null) {
+                    val secondaryColor = wallpaperColors.secondaryColor
+                    if (secondaryColor != null) {
+                        return secondaryColor.toArgb()
+                    }
+                }
+            } catch (e: Exception) {
+                // Fallback to default color if wallpaper colors not available
+            }
+        }
+        // Fallback color
+        return ContextCompat.getColor(context, com.example.pixelnothingwidgets.R.color.teal_200)
+    }
+
+    @SuppressLint("NewApi")
+    fun getTertiaryColor(): Int {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            try {
+                val wallpaperManager = context.getSystemService(Context.WALLPAPER_SERVICE) as android.app.WallpaperManager
+                val wallpaperColors = wallpaperManager.getWallpaperColors(android.app.WallpaperManager.FLAG_SYSTEM)
+                if (wallpaperColors != null) {
+                    val tertiaryColor = wallpaperColors.tertiaryColor
+                    if (tertiaryColor != null) {
+                        return tertiaryColor.toArgb()
+                    }
+                }
+            } catch (e: Exception) {
+                // Fallback to default color if wallpaper colors not available
+            }
+        }
+        // Fallback color
+        return ContextCompat.getColor(context, com.example.pixelnothingwidgets.R.color.amber_200)
+    }
+
     fun getTextColorForBackground(backgroundColor: Int): Int {
         // Calculate contrast ratio to determine text color
         val luminance = getLuminance(backgroundColor)
@@ -36,6 +77,11 @@ class DynamicColorHelper(private val context: Context) {
         } else {
             Color.WHITE // Dark background, use white text
         }
+    }
+
+    fun getSurfaceColor(backgroundColor: Int): Int {
+        // Create a surface color based on the dynamic color
+        return ColorUtils.setAlphaComponent(backgroundColor, 200) // 78% opacity
     }
 
     private fun getLuminance(color: Int): Double {

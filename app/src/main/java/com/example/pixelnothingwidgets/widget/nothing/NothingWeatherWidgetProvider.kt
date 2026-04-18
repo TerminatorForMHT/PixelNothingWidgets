@@ -13,6 +13,7 @@ import com.example.pixelnothingwidgets.weather.getNothingStyleWeatherText
 import com.example.pixelnothingwidgets.weather.mapWeatherCode
 import com.example.pixelnothingwidgets.widget.WidgetRenderer
 import com.example.pixelnothingwidgets.data.SettingsDataStore
+import com.example.pixelnothingwidgets.system.DynamicColorHelper
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.flow.first
 
@@ -34,6 +35,17 @@ class NothingWeatherWidgetProvider : AppWidgetProvider() {
             val views = RemoteViews(context.packageName, R.layout.nothing_weather_widget)
             val widgetRenderer = WidgetRenderer(context)
             val settingsDataStore = SettingsDataStore(context)
+            val dynamicColorHelper = DynamicColorHelper(context)
+
+            // Apply dynamic colors
+            val primaryColor = dynamicColorHelper.getDynamicColor()
+            val textColor = dynamicColorHelper.getTextColorForBackground(primaryColor)
+
+            // Set widget text colors
+            views.setInt(R.id.city_text, "setTextColor", textColor)
+            views.setInt(R.id.temperature_text, "setTextColor", textColor)
+            views.setInt(R.id.condition_text, "setTextColor", textColor)
+            views.setInt(R.id.error_text, "setTextColor", textColor)
 
             // Get weather data
             val weatherData = widgetRenderer.getWeatherData()

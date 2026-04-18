@@ -11,6 +11,7 @@ import android.provider.CalendarContract
 import android.widget.RemoteViews
 import com.example.pixelnothingwidgets.R
 import com.example.pixelnothingwidgets.widget.WidgetTimeUtils
+import com.example.pixelnothingwidgets.system.DynamicColorHelper
 
 class NothingClockWidgetProvider : AppWidgetProvider() {
 
@@ -29,6 +30,15 @@ class NothingClockWidgetProvider : AppWidgetProvider() {
         fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
             val views = RemoteViews(context.packageName, R.layout.nothing_clock_widget)
             val timeUtils = WidgetTimeUtils()
+            val dynamicColorHelper = DynamicColorHelper(context)
+
+            // Apply dynamic colors
+            val primaryColor = dynamicColorHelper.getDynamicColor()
+            val textColor = dynamicColorHelper.getTextColorForBackground(primaryColor)
+
+            // Set widget text colors
+            views.setInt(R.id.time_text, "setTextColor", textColor)
+            views.setInt(R.id.date_text, "setTextColor", textColor)
 
             // Set time and date
             views.setTextViewText(R.id.time_text, timeUtils.getCurrentTime())

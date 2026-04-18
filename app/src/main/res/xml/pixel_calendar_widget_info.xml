@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="180dp"
+    android:minHeight="180dp"
+    android:updatePeriodMillis="86400000" <!-- 24 hours -->
+    android:initialLayout="@layout/pixel_calendar_widget"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:description="Pixel-style calendar widget">
+</appwidget-provider>
