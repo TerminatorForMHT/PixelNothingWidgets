@@ -6,6 +6,5 @@
     android:updatePeriodMillis="86400000"
     android:initialLayout="@layout/pixel_calendar_widget"
     android:resizeMode="horizontal|vertical"
-    android:widgetCategory="home_screen"
-    android:description="Pixel-style calendar widget">
+    android:widgetCategory="home_screen">
 </appwidget-provider>
